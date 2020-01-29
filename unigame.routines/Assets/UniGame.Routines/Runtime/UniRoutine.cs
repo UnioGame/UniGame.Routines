@@ -52,8 +52,9 @@
 		public void Update() {
 
 			bufferRoutines.Clear();
-			
-			for (var i = 0; i < routines.Count; i++) {
+
+			var count = routines.Count;
+			for (var i = 0; i < count; i++) {
 				//execute routine
 				var routine = routines[i];
 				var moveNext = false;
@@ -78,7 +79,8 @@
 
 		public void Reset()
 		{
-			for (var i = 0; i < routines.Count; i++) {
+			var count = routines.Count;
+			for (var i = 0; i <count; i++) {
 				var routine = routines[i];
 				routine.Complete();
 				routine.Despawn();

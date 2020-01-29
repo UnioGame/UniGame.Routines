@@ -39,6 +39,8 @@
         {
             Release();
 
+            lifeTimeDefinition.Release();
+            
             IdValue = id;
             rootEnumerator   = enumerator;
             Current          = enumerator;
@@ -91,7 +93,7 @@
             rootEnumerator = null;
             state          = RoutineState.Complete;
             awaiters.Clear();
-            lifeTimeDefinition.Release();
+            lifeTimeDefinition.Terminate();
         }
         
         public void Reset()

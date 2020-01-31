@@ -1,11 +1,15 @@
 {
   "name": "com.unigame.uniroutine",
-  "author": "Mefodei",
+  "author": "Mefodei (https://github.com/Mefodei)",
   "displayName": "UniGame UniRoutine",
   "description": "Unity Routine System",
   "unity": "2019.2",
-  "version": "1.4.1",
-  "keywords": [],
+  "version": "1.4.5",
+  "homepage": "https://github.com/Mefodei/UniRoutines#readme",
+  "keywords": [
+    "routine",
+    "async"
+  ],
   "dependencies": {
     "com.unigame.unicore": "1.3.26"
   },

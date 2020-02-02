@@ -1,10 +1,17 @@
 ﻿namespace UniGreenModules.UniRoutine.Runtime
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using UniCore.Runtime.DataFlow;
     using UniCore.Runtime.DataFlow.Interfaces;
+    using Unity.IL2CPP.CompilerServices;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+    [Serializable]
     public class UniRoutineTask : IUniRoutineTask
     {
         private readonly Stack<IEnumerator> awaiters = new Stack<IEnumerator>();
@@ -54,6 +61,7 @@
         /// iterate all enumerator steps with inner iterators
         /// </summary>
         /// <returns>is iteration completed</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
             if (IsCompleted) return false;
@@ -109,6 +117,7 @@
             Release();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool MoveNextInner()
         {
             //if current already null - stop execution

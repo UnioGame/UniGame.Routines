@@ -333,8 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateCount: 1000
-  routineCount: 1000
+  updateCount: 10000
+  routineCount: 10000
   RoutineType: 0
 --- !u!4 &2053350209
 Transform:

@@ -1,19 +1,25 @@
 ﻿namespace UniGreenModules.UniRoutine.Runtime {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
+	using System.Runtime.CompilerServices;
 	using Interfaces;
 	using UniCore.Runtime.Interfaces;
 	using UniCore.Runtime.ObjectPool.Runtime;
 	using UniCore.Runtime.ObjectPool.Runtime.Extensions;
 	using UniCore.Runtime.ProfilerTools;
+	using UniGame.Core.Runtime.DataStructure.LinkedList;
+	using Unity.IL2CPP.CompilerServices;
 
+	[Il2CppSetOption(Option.NullChecks, false)]
+	[Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+	[Il2CppSetOption(Option.DivideByZeroChecks, false)]
+	[Serializable]
 	public class UniRoutine : IUniRoutine, IResetable
 	{
 		private int idCounter = 1;
 		private Dictionary<int,UniRoutineTask> activeRoutines = new Dictionary<int, UniRoutineTask>();
-		
-		private List<UniRoutineTask> routines = new List<UniRoutineTask>(200);
-		private List<UniRoutineTask> bufferRoutines = new List<UniRoutineTask>(200);
+		private UniLinkedList<UniRoutineTask> routineTasks = new UniLinkedList<UniRoutineTask>();
 		
 		public IUniRoutineTask AddRoutine(IEnumerator enumerator,bool moveNextImmediately = true) {
 
@@ -29,8 +35,8 @@
 			var id = idCounter++;
 			//get routine from pool
 			routine.Initialize(id,enumerator, moveNextImmediately);
-
-			routines.Add(routine);
+			routineTasks.Add(routine);
+			
 			activeRoutines[id] = routine;
 			
 			return routine;
@@ -38,55 +44,57 @@
 
 		public bool CancelRoutine(int id)
 		{
-			if(activeRoutines.TryGetValue(id, out var routineTask))
-			{
-				routineTask.Dispose();
-				return true;
+			if (!activeRoutines.TryGetValue(id, out var routineTask)) {
+				return false;
 			}
-			return false;
+
+			routineTask.Dispose();
+			return true;
 		}
 		
 		/// <summary>
 		/// update all registered routine tasks
 		/// </summary>
-		public void Update() {
-
-			bufferRoutines.Clear();
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public void Update()
+		{
+			var current = routineTasks.root;
 			
-			for (var i = 0; i < routines.Count; i++) {
-				//execute routine
-				var routine = routines[i];
-				var moveNext = false;
-				
-				moveNext = routine.MoveNext();
+			while (current!=null) {
 
-				//copy to buffer routine
-				if (moveNext) {
-					bufferRoutines.Add(routine);
-					continue;
+				var next = current.Next;
+				var routine = current.Value;
+				
+				var isComplete = routine.isComplete || routine.MoveNext() == false;
+
+				if (isComplete) {
+					routineTasks.Remove(current);
+					current.Dispose();
+					
+					CancelRoutine(routine.IdValue);
+					
+					routine.Despawn();
 				}
 
-				CancelRoutine(routine.IdValue);
-				routine.Despawn();
+				current = next;
 			}
-
-			var swapBuffer = bufferRoutines;
-			bufferRoutines = routines;
-			routines = swapBuffer;
-			
 		}
 
 		public void Reset()
 		{
-			for (var i = 0; i < routines.Count; i++) {
-				var routine = routines[i];
+			var current = routineTasks.root;
+			while (current!=null) {
+
+				var next    = current.Next;
+				var routine = current.Value;
 				routine.Complete();
 				routine.Despawn();
+
+				current = next;	
 			}
-			
+
 			activeRoutines.Clear();
-			routines.Clear();
-			bufferRoutines.Clear();
+			routineTasks.Release();
 		}
 	}
 }

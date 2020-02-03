@@ -2,10 +2,15 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using UniCore.Runtime.Interfaces;
+    using UniCore.Runtime.ObjectPool.Runtime;
+    using UniCore.Runtime.ObjectPool.Runtime.Extensions;
+    using UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension;
     using UnityEngine;
+    using UnityEngine.Profiling;
 
-    public static class RoutineExtension
+    public static partial class RoutineExtension
     {
 
         public static IEnumerator RoutineWaitUntil(this ICompletionStatus status) {
@@ -84,12 +89,12 @@
         
         public static IEnumerator WaitForSeconds(this object source,float delay)
         {
-            var time       = 0f;
-            while (time < delay)
-            {
-                yield return null;
-                time += Time.deltaTime;
-            }
+            var waitForSeconds = ClassPool.
+                Spawn<WaitForSecondRoutine>().
+                Initialize(delay);
+            
+            yield return waitForSeconds;
+            waitForSeconds.Despawn();
         }
         
         public static IEnumerator WaitUntil(this object source, Func<bool> completeFunc)

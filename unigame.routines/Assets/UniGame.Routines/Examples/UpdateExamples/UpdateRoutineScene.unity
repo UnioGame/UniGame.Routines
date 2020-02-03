@@ -94,8 +94,9 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -136,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &513749492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,12 +147,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 513749491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a95ac12f4d0b94081ec08c34005380, type: 3}
+  m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
   routineCount: 10000
-  RoutineType: 3
+  RoutineType: 2
 --- !u!4 &513749493
 Transform:
   m_ObjectHideFlags: 0
@@ -182,7 +183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &944520778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 944520777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dcdc80958e73ed4abd58a1ad6fab3b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d5c4ce5647ba4a468c9ca677952e6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
@@ -227,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1540113158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,12 +238,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1540113157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a95ac12f4d0b94081ec08c34005380, type: 3}
+  m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
   routineCount: 10000
-  RoutineType: 1
+  RoutineType: 3
 --- !u!4 &1540113159
 Transform:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1622727647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,12 +284,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1622727646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a95ac12f4d0b94081ec08c34005380, type: 3}
+  m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
   routineCount: 10000
-  RoutineType: 2
+  RoutineType: 1
 --- !u!4 &1622727648
 Transform:
   m_ObjectHideFlags: 0
@@ -329,7 +330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2053350207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a95ac12f4d0b94081ec08c34005380, type: 3}
+  m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000

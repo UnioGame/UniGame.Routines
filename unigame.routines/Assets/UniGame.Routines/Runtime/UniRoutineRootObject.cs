@@ -6,22 +6,23 @@
 
     public class UniRoutineRootObject : MonoBehaviour, IDisposable
     {
-        private List<IUniRoutine> lateRoutines = new List<IUniRoutine>();
+        [SerializeField]
+        private List<IUniRoutine> routines = new List<IUniRoutine>();
 
         public void Dispose()
         {
-            lateRoutines.Clear();
+            routines.Clear();
         }
         
         public void AddLateRoutine(IUniRoutine routine)
         {
-            lateRoutines.Add(routine);
+            routines.Add(routine);
         }
         
         private void LateUpdate()
         {
-            for (int i = 0; i < lateRoutines.Count; i++) {
-                var routine = lateRoutines[i];
+            for (var i = 0; i < routines.Count; i++) {
+                var routine = routines[i];
                 routine.Update();
             }
         }

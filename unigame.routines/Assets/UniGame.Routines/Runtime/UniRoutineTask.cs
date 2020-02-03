@@ -1,10 +1,17 @@
 ﻿namespace UniGreenModules.UniRoutine.Runtime
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using UniCore.Runtime.DataFlow;
     using UniCore.Runtime.DataFlow.Interfaces;
+    using Unity.IL2CPP.CompilerServices;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+    [Serializable]
     public class UniRoutineTask : IUniRoutineTask
     {
         private readonly Stack<IEnumerator> awaiters = new Stack<IEnumerator>();
@@ -12,9 +19,11 @@
         
         public readonly ILifeTime lifeTime;
 
+        public bool isComplete = true;
         public int IdValue;
         
         private IEnumerator rootEnumerator;
+        private IEnumerator current;
         private RoutineState state = RoutineState.Complete;
         
         public UniRoutineTask()
@@ -26,9 +35,9 @@
         
         public ILifeTime LifeTime => lifeTime;
 
-        public bool IsCompleted => state == RoutineState.Complete;
+        public bool IsCompleted => isComplete;
         
-        public IEnumerator Current { get; private set; }
+        public IEnumerator Current => current;
 
         object IEnumerator.Current => Current;
 
@@ -39,11 +48,13 @@
         {
             Release();
 
+            lifeTimeDefinition.Release();
+            
             IdValue = id;
             rootEnumerator   = enumerator;
-            Current          = enumerator;
+            current = enumerator;
 
-            state          = RoutineState.Active;
+            SetTaskState(RoutineState.Active);
 
             if (moveNextImmediately) MoveNext();
         }
@@ -52,9 +63,10 @@
         /// iterate all enumerator steps with inner iterators
         /// </summary>
         /// <returns>is iteration completed</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
-            if (IsCompleted) return false;
+            if (isComplete) return false;
             
             if (state == RoutineState.Paused)
                 return true;
@@ -69,37 +81,38 @@
 
         public void Pause()
         {
-            if (IsCompleted) return;
-            state = RoutineState.Paused;
+            if (isComplete) return;
+            SetTaskState(RoutineState.Paused);
         }
 
         public void Unpause()
         {
-            if (IsCompleted) return;
-            state = RoutineState.Active;
+            if (isComplete) return;
+            SetTaskState(RoutineState.Active);
         }
 
         public void Complete()
         {
-            if (IsCompleted) return;
-            state = RoutineState.Complete;
+            if (isComplete) return;
+            SetTaskState(RoutineState.Complete);
         }
         
         public void Release()
         {
             IdValue = 0;
             rootEnumerator = null;
-            state          = RoutineState.Complete;
+            current = null;
+            SetTaskState(RoutineState.Complete);
             awaiters.Clear();
-            lifeTimeDefinition.Release();
+            lifeTimeDefinition.Terminate();
         }
         
         public void Reset()
         {
             rootEnumerator?.Reset();
-            Current = rootEnumerator;
+            current = rootEnumerator;
             awaiters.Clear();
-            state = RoutineState.None;
+            SetTaskState(RoutineState.None);
         }
 
         public void Dispose()
@@ -107,17 +120,18 @@
             Release();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool MoveNextInner()
         {
             //if current already null - stop execution
-            if (Current == null)
+            if (current == null)
             {
                 Dispose();
                 return false;
             }
 
             //cacl nect execution step
-            var moveNext = Current.MoveNext();
+            var moveNext = current.MoveNext();
 
             //if current enumerator motion finished try get next one from stack
             if (!moveNext)
@@ -125,20 +139,33 @@
                 if (awaiters.Count == 0){
                     return false;
                 }
-                Current = awaiters.Pop();
+                current = awaiters.Pop();
                 return true;
             }
 
-            while (moveNext && Current.Current is IEnumerator awaiter)
+            while (moveNext && current.Current is IEnumerator awaiter)
             {
                 //add new inner enumerator to stack
-                awaiters.Push(Current);
-                Current = awaiter;
+                awaiters.Push(current);
+                current = awaiter;
                 //for new root enumerator calculate first step
-                moveNext = Current.MoveNext();
+                moveNext = current.MoveNext();
             }
 
             return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void SetTaskState(RoutineState activeState)
+        {
+            state = activeState;
+            isComplete = false;
+            
+            switch (state) {
+                case RoutineState.Complete:
+                    isComplete = true;
+                    break;
+            }
         }
         
     }

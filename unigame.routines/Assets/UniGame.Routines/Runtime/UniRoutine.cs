@@ -21,7 +21,6 @@
 		private Dictionary<int,UniRoutineTask> activeRoutines = new Dictionary<int, UniRoutineTask>();
 		private UniLinkedList<UniRoutineTask> routineTasks = new UniLinkedList<UniRoutineTask>();
 		
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public IUniRoutineTask AddRoutine(IEnumerator enumerator,bool moveNextImmediately = true) {
 
 			if (enumerator == null) return null;
@@ -43,7 +42,6 @@
 			return routine;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool CancelRoutine(int id)
 		{
 			if (!activeRoutines.TryGetValue(id, out var routineTask)) {
@@ -57,6 +55,7 @@
 		/// <summary>
 		/// update all registered routine tasks
 		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Update()
 		{
 			var current = routineTasks.root;
@@ -66,13 +65,14 @@
 				var next = current.Next;
 				var routine = current.Value;
 				
-				var isComplete = routine.lifeTime.IsTerminated || routine.MoveNext() == false;
+				var isComplete = routine.isComplete || routine.MoveNext() == false;
 
 				if (isComplete) {
 					routineTasks.Remove(current);
 					current.Dispose();
 					
 					CancelRoutine(routine.IdValue);
+					
 					routine.Despawn();
 				}
 

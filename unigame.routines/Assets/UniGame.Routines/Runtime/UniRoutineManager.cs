@@ -4,8 +4,12 @@
     using System.Collections;
     using System.Collections.Generic;
     using Interfaces;
+    using Unity.IL2CPP.CompilerServices;
     using UnityEngine;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UniRoutineManager
     {
         private static Lazy<UniRoutineRootObject> routineObject = new Lazy<UniRoutineRootObject>(CreateRoutineManager);

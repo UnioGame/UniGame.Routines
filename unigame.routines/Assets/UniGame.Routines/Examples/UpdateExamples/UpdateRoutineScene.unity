@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateCount: 0
-  routineCount: 0
-  RoutineType: 0
+  updateCount: 10000
+  routineCount: 10000
+  RoutineType: 2
 --- !u!4 &513749493
 Transform:
   m_ObjectHideFlags: 0
@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5c4ce5647ba4a468c9ca677952e6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateCount: 1000
-  routineCount: 1000
+  updateCount: 10000
+  routineCount: 10000
 --- !u!4 &944520779
 Transform:
   m_ObjectHideFlags: 0
@@ -241,9 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateCount: 0
-  routineCount: 0
-  RoutineType: 0
+  updateCount: 10000
+  routineCount: 10000
+  RoutineType: 3
 --- !u!4 &1540113159
 Transform:
   m_ObjectHideFlags: 0
@@ -287,9 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d7773575a3ec342aaeb8c4811457d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateCount: 0
-  routineCount: 0
-  RoutineType: 0
+  updateCount: 10000
+  routineCount: 10000
+  RoutineType: 1
 --- !u!4 &1622727648
 Transform:
   m_ObjectHideFlags: 0

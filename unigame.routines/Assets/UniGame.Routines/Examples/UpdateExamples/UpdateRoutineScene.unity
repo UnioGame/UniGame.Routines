@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
-  routineCount: 10000
+  routineCount: 100000
   RoutineType: 2
 --- !u!4 &513749493
 Transform:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
-  routineCount: 10000
+  routineCount: 100000
 --- !u!4 &944520779
 Transform:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
-  routineCount: 10000
+  routineCount: 100000
   RoutineType: 3
 --- !u!4 &1540113159
 Transform:
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
-  routineCount: 10000
+  routineCount: 100000
   RoutineType: 1
 --- !u!4 &1622727648
 Transform:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCount: 10000
-  routineCount: 10000
+  routineCount: 100000
   RoutineType: 0
 --- !u!4 &2053350209
 Transform:

@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using Interfaces;
     using Unity.IL2CPP.CompilerServices;
     using UnityEngine;
@@ -63,6 +64,7 @@
             return routine;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static IEnumerator ExecuteOnUpdate(IUniRoutine routine, RoutineType routineType)
         {
             var awaiter = GetRoutineAwaiter(routineType);
@@ -72,7 +74,9 @@
                 yield return awaiter;
             }
         }
+        
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static YieldInstruction GetRoutineAwaiter(RoutineType routineType)
         {
             switch (routineType) {
@@ -89,6 +93,7 @@
             return null;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void ExecuteUniRoutines(IUniRoutine routine, RoutineType routineType)
         {
             var routineContainer = routineObject.Value;
@@ -100,6 +105,13 @@
             routineContainer.StartCoroutine(ExecuteOnUpdate(routine, routineType));
         }
 
+
+        public static bool IsRoutineActive(RoutineHandler handler)
+        {
+            return true;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryToStopRoutine(RoutineHandler handler)
         {
             //get routine

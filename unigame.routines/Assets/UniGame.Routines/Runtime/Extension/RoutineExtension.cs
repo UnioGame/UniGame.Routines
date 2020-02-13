@@ -68,11 +68,10 @@
         
         public static IEnumerator WaitForSecond(this object source,float delay)
         {
-            var time = 0f;
-            while (time < delay)
+            var time = Time.time + delay;
+            while (time < Time.time)
             {
                 yield return null;
-                time += Time.deltaTime;
             }
         }
         
@@ -94,6 +93,7 @@
                 Initialize(delay);
             
             yield return waitForSeconds;
+            
             waitForSeconds.Despawn();
         }
         

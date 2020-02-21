@@ -15,6 +15,11 @@ namespace UniGreenModules.UniRoutine.Runtime.Extension
         {
             return UniRoutineManager.TryToStopRoutine(handler);
         }
+        
+        public static bool IsActive(this RoutineHandler handler)
+        {
+            return UniRoutineManager.IsRoutineActive(handler);
+        }
     
         public static IDisposableItem AsDisposable(this RoutineHandler handler)
         {
@@ -35,5 +40,7 @@ namespace UniGreenModules.UniRoutine.Runtime.Extension
             collection.Add(disposable);
             return disposable;
         }
+        
+        
     }
 }

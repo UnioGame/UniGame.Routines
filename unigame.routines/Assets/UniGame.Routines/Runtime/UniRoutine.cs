@@ -18,7 +18,7 @@
 	public class UniRoutine : IUniRoutine, IResetable
 	{
 		private int idCounter = 1;
-		private Dictionary<int,UniRoutineTask> activeRoutines = new Dictionary<int, UniRoutineTask>();
+		private Dictionary<int,UniRoutineTask> activeRoutines = new Dictionary<int, UniRoutineTask>(256);
 		private UniLinkedList<UniRoutineTask> routineTasks = new UniLinkedList<UniRoutineTask>();
 		
 		public IUniRoutineTask AddRoutine(IEnumerator enumerator,bool moveNextImmediately = true) {
@@ -40,6 +40,11 @@
 			activeRoutines[id] = routine;
 			
 			return routine;
+		}
+
+		public bool IsActive(int id)
+		{
+			return activeRoutines.ContainsKey(id);
 		}
 
 		public bool CancelRoutine(int id)

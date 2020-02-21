@@ -108,7 +108,9 @@
 
         public static bool IsRoutineActive(RoutineHandler handler)
         {
-            return true;
+            //get routine
+            var routine = uniRoutines[(int) handler.Type];
+            return routine.Value.IsActive(handler.Id);
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

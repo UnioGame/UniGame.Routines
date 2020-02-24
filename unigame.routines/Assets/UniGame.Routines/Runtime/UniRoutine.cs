@@ -8,6 +8,7 @@
 	using UniCore.Runtime.ObjectPool.Runtime;
 	using UniCore.Runtime.ObjectPool.Runtime.Extensions;
 	using UniCore.Runtime.ProfilerTools;
+	using UniGame.Core.Runtime.DataStructure;
 	using UniGame.Core.Runtime.DataStructure.LinkedList;
 	using Unity.IL2CPP.CompilerServices;
 

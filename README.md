@@ -104,6 +104,16 @@ Routine update type can one from the following regular Unity life cycle
 
 ### Routine Cancelation
 
+Any Routine can be canceled one extension method call with no depends on that Execution method you choose.
+
+```csharp
+var handler = Foo().Execute();
+var disposable = Foo().ExecuteRoutine();
+
+handler.Cancel();//can be called as many times as you wish
+disposable.Cancel();//IMPORTANT! CALL Cancel for Disposable ONLY ONCE. It use ClassPool under the hood
+```
+
 ## Routine Extensions
 
 ## Perfomance

@@ -68,6 +68,25 @@ public class RoutineChainTest : MonoBehaviour
 
 ```
 
+You can use two ways to execute Routine:
+
+1. Execute routine to get IDisposable cancelation handler
+
+```csharp
+public static IDisposableItem ExecuteRoutine(
+            this IEnumerator enumerator, 
+            RoutineType routineType = RoutineType.Update,
+            bool moveNextImmediately = false)
+```
+
+2. Start routine to get RoutineHandler struct
+
+```csharp
+public static RoutineHandler Execute(
+            this IEnumerator enumerator, 
+            RoutineType routineType = RoutineType.Update,
+            bool moveNextImmediately = false)
+```
 
 ### Cancel routine
 

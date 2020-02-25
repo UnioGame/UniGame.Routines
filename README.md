@@ -93,3 +93,11 @@ public static RoutineHandler Execute(
 ### Routine Type
 
 ## Routine Extensions
+
+## Perfomance
+
+UniRoutine vs UniRx.MicroCoroutines on 100K Updates methods
+
+![](https://i.gyazo.com/4f97f199a23a429c81c532cebcb308f4.png)
+
+![](https://i.gyazo.com/0982259e12e4e68d3283be8f85d0708c.png)

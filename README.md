@@ -69,6 +69,8 @@ public class RoutineChainTest : MonoBehaviour
 ```
 
 
-### Stop routine
+### Cancel routine
+
+### Routine Type
 
 ## Routine Extensions

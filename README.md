@@ -70,7 +70,7 @@ public class RoutineChainTest : MonoBehaviour
 
 You can use two ways to execute Routine:
 
-1. Execute routine to get IDisposable cancelation handler
+1. Execute routine with "ExecuteRoutine" to get IDisposable cancelation handler
 
 ```csharp
 public static IDisposableItem ExecuteRoutine(
@@ -79,7 +79,7 @@ public static IDisposableItem ExecuteRoutine(
             bool moveNextImmediately = false)
 ```
 
-2. Start routine to get RoutineHandler struct
+2. Start routine with "Execute" to get RoutineHandler struct that allow get more info about routines status and control them
 
 ```csharp
 public static RoutineHandler Execute(

@@ -34,6 +34,8 @@ Open window Package Manager in Unity and install UniGame Routine System Package
 
 For use routines just implement your method with IEnumerator result as your alway do wiith regular Unity coroutins
 
+### Run routine
+
 ```csharp
 public class RoutineChainTest : MonoBehaviour
 {
@@ -66,3 +68,7 @@ public class RoutineChainTest : MonoBehaviour
 
 ```
 
+
+### Stop Routine
+
+## Routine Extensions

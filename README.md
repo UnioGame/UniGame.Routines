@@ -50,6 +50,7 @@ public class RoutineChainTest : MonoBehaviour
         while (counter < 100) {
             yield return LongOp2();
             yield return LongOp3();
+            counter++;
         }
     }
     

@@ -34,7 +34,7 @@ Open window Package Manager in Unity and install UniGame Routine System Package
 
 For use routines just implement your method with IEnumerator result as your alway do wiith regular Unity coroutins
 
-### Run routine
+### Routine Execution
 
 ```csharp
 public class RoutineChainTest : MonoBehaviour
@@ -88,9 +88,21 @@ public static RoutineHandler Execute(
             bool moveNextImmediately = false)
 ```
 
-### Cancel routine
-
 ### Routine Type
+
+Routine update type can one from the following regular Unity life cycle
+
+```csharp
+  public enum RoutineType : byte
+  {
+      Update = 0,
+      EndOfFrame = 1,
+      FixedUpdate = 2,
+      LateUpdate = 3,
+  }
+```
+
+### Routine Cancelation
 
 ## Routine Extensions
 

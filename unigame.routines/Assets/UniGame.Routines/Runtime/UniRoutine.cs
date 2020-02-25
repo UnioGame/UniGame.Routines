@@ -48,12 +48,12 @@
 			return activeRoutines.ContainsKey(id);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool CancelRoutine(int id)
 		{
 			if (!activeRoutines.TryGetValue(id, out var routineTask)) {
 				return false;
 			}
-
 			routineTask.Dispose();
 			return true;
 		}

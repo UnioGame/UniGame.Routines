@@ -15,8 +15,8 @@ namespace UniGreenModules.UniRoutine.Examples.UpdateExamples
         // Start is called before the first frame update
         private void Start()
         {
-            for (int i = 0; i < routineCount; i++) {
-                Observable.FromMicroCoroutine(() => OnUpdate(i)).Subscribe().AddTo(Disposables);
+            for (var i = 0; i < routineCount; i++) {
+                MainThreadDispatcher.StartUpdateMicroCoroutine(OnUpdate(i));
             }
         }
 

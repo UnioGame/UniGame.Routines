@@ -15,7 +15,7 @@ namespace UniGreenModules.UniRoutine.Runtime
         public void Release()
         {
             Task.Dispose();
-            Disposable?.Release();
+            Disposable?.Complete();
         }
     }
 }

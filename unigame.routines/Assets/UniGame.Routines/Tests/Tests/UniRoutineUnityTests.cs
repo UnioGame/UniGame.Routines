@@ -207,7 +207,7 @@
 
             disposableItem = routine.ExecuteRoutine(RoutineType.FixedUpdate, false);
             
-            while (disposableItem.IsDisposed == false) {
+            while (disposableItem.IsComplete == false) {
                 yield return null;
             }
 

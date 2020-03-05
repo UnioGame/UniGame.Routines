@@ -51,10 +51,10 @@
             return disposable;
         }
 
-        public static ILifeTime AddTo(this RoutineHandler handler,ILifeTime lifeTime)
+        public static RoutineHandler AddTo(this RoutineHandler handler,ILifeTime lifeTime)
         {
             lifeTime.AddCleanUpAction(() => handler.Cancel());
-            return lifeTime;
+            return handler;
         }
     
         public static IDisposableItem AddTo(this RoutineHandler handler,ICollection<IDisposable> collection)

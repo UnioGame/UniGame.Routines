@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace UniGreenModules.UniRoutine.Examples.UpdateExamples
 {
-    using System;
     using System.Collections.Generic;
     using Runtime;
-    using Runtime.Extension;
 
     public class UpdateRoutineExample : MonoBehaviour
     {

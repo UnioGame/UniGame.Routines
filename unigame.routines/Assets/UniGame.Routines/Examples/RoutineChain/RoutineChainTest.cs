@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UniGreenModules.UniRoutine.Runtime;
 using UniGreenModules.UniRoutine.Runtime.Extension;
 using UnityEngine;

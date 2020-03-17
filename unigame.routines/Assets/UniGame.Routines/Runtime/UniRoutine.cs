@@ -55,7 +55,8 @@
 				return false;
 			}
 			routineTask.Dispose();
-			return true;
+            activeRoutines.Remove(id);
+            return true;
 		}
 		
 		/// <summary>
@@ -75,6 +76,7 @@
 
 				if (isComplete) {
 					routineTasks.Remove(current);
+                    activeRoutines.Remove(current.Value.Id);
 					current.Dispose();
 					
 					CancelRoutine(routine.IdValue);

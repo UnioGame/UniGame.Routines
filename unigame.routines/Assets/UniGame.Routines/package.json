@@ -5,7 +5,7 @@
   "description": "Unity Routine System",
   "unity": "2019.2",
   "version": "1.5.30",
-  "homepage": "https://github.com/Mefodei/UniRoutines#readme",
+  "homepage": "https://github.com/UniGameTeam/UniRoutines#readme",
   "keywords": [
     "routine",
     "async"
@@ -15,6 +15,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mefodei/UniRoutines.git"
+    "url": "https://github.com/UniGameTeam/UniRoutines.git"
   }
 }

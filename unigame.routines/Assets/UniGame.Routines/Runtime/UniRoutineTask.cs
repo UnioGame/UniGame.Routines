@@ -143,7 +143,7 @@
                 return true;
             }
 
-            while (moveNext && current.Current is IEnumerator awaiter)
+            while (moveNext && current?.Current is IEnumerator awaiter)
             {
                 //add new inner enumerator to stack
                 awaiters.Push(current);

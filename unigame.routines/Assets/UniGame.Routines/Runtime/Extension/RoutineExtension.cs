@@ -9,6 +9,7 @@
     using UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension;
     using UnityEngine;
     using UnityEngine.Profiling;
+    using WaitForEndOfFrame = UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension.WaitForEndOfFrame;
 
     public static partial class RoutineExtension
     {
@@ -96,7 +97,16 @@
             
             waitForSeconds.Despawn();
         }
-        
+
+        public static IEnumerator WaitForEndOfFrame(this object source)
+        {
+            var waitForEndFrame = ClassPool.Spawn<WaitForEndOfFrame>().Initialize();
+
+            yield return waitForEndFrame;
+            
+            waitForEndFrame.Despawn();
+        }
+
         public static IEnumerator WaitUntil(this object source, Func<bool> completeFunc)
         {
 

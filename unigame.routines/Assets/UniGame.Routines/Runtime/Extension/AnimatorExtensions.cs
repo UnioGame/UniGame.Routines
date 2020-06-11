@@ -14,5 +14,12 @@
 
             yield return animator.WaitForSeconds(animator.GetCurrentAnimatorStateInfo(layer).length);
         }
+
+        public static IEnumerator WaitStateEnd(this Animator animator, int stateHash, int layer = 0)
+        {
+            animator.SetTrigger(stateHash);
+
+            yield return animator.WaitForEnd(stateHash, layer);
+        }
     }
 }

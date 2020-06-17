@@ -9,6 +9,7 @@
     using UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension;
     using UnityEngine;
     using UnityEngine.Profiling;
+    using Object = UnityEngine.Object;
     using WaitForEndOfFrame = UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension.WaitForEndOfFrame;
 
     public static partial class RoutineExtension
@@ -86,7 +87,7 @@
                 time = Time.unscaledTime;
             }
         }
-        
+
         public static IEnumerator WaitForSeconds(this object source,float delay)
         {
             var waitForSeconds = ClassPool.
@@ -129,12 +130,12 @@
 
         }
 
-        public static IEnumerator ExecuteWhile(this object target, Func<IEnumerator> sequence, Func<bool> condition)
+        public static IEnumerator DoWhile(this Object target, Func<IEnumerator> sequence, Func<bool> condition)
         {
             
             if(sequence == null || condition == null)yield break;
 
-            while (condition())
+            while (target && condition())
             {
                 yield return sequence();
                 yield return null;

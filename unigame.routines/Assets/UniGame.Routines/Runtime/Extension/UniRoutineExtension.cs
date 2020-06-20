@@ -8,6 +8,7 @@
     using UniCore.Runtime.DataFlow.Interfaces;
     using UniCore.Runtime.Interfaces;
     using UniCore.Runtime.ObjectPool.Runtime;
+    using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
 
     public static class UniRoutineExtension {
 

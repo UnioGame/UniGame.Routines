@@ -6,6 +6,7 @@
     using System.Runtime.CompilerServices;
     using UniCore.Runtime.DataFlow;
     using UniCore.Runtime.DataFlow.Interfaces;
+    using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
     using Unity.IL2CPP.CompilerServices;
 
     [Il2CppSetOption(Option.NullChecks, false)]

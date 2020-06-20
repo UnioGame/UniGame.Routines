@@ -4,6 +4,7 @@ namespace UniGreenModules.UniRoutine.Runtime
     using System.Collections.Generic;
     using UniCore.Runtime.DataFlow.Interfaces;
     using UniCore.Runtime.ObjectPool.Runtime.Interfaces;
+    using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
 
     public interface IUniRoutineTask : IEnumerator<IEnumerator>, IPoolable
     {

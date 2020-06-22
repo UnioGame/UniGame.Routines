@@ -12,53 +12,55 @@
 
     public static class UniRoutineExtension {
 
-        public static IDisposableItem RunWithSubRoutines(this IEnumerator enumerator, 
+        public static IDisposableItem RunWithSubRoutines(
+            this IEnumerator enumerator, 
             RoutineType routineType = RoutineType.Update)
         {
             return ExecuteRoutine(enumerator,routineType);   
         }
-        
+
         public static IDisposableItem ExecuteRoutine(
             this IEnumerator enumerator, 
             RoutineType routineType = RoutineType.Update,
-            bool moveNextImmediately = false)
+            bool moveNextImmediately = false,
+            RoutineScope scope = RoutineScope.Global)
         {
-            return Execute(enumerator,routineType,moveNextImmediately).AsDisposable();
+            return Execute(enumerator,routineType,moveNextImmediately,scope).AsDisposable();
         }
 	
-        public static RoutineHandler Execute(
+        public static RoutineHandle Execute(
             this IEnumerator enumerator, 
             RoutineType routineType = RoutineType.Update,
-            bool moveNextImmediately = false)
+            bool moveNextImmediately = false,
+            RoutineScope scope = RoutineScope.Global)
         {
-            return UniRoutineManager.RunUniRoutine(enumerator,routineType,moveNextImmediately);
+            return UniRoutineManager.RunUniRoutine(enumerator,routineType,scope,moveNextImmediately);
         }
 
-        
-        public static bool Cancel(this RoutineHandler handler)
+        public static bool Cancel(this RoutineHandle handler)
         {
             return UniRoutineManager.TryToStopRoutine(handler);
         }
         
-        public static bool IsActive(this RoutineHandler handler)
+        public static bool IsActive(this RoutineHandle handler)
         {
             return UniRoutineManager.IsRoutineActive(handler);
         }
     
-        public static IDisposableItem AsDisposable(this RoutineHandler handler)
+        public static IDisposableItem AsDisposable(this RoutineHandle handler)
         {
             var disposable = ClassPool.Spawn<DisposableAction>();
             disposable.Initialize(() => UniRoutineManager.TryToStopRoutine(handler));
             return disposable;
         }
 
-        public static RoutineHandler AddTo(this RoutineHandler handler,ILifeTime lifeTime)
+        public static RoutineHandle AddTo(this RoutineHandle handler,ILifeTime lifeTime)
         {
             lifeTime.AddCleanUpAction(() => handler.Cancel());
             return handler;
         }
     
-        public static IDisposableItem AddTo(this RoutineHandler handler,ICollection<IDisposable> collection)
+        public static IDisposableItem AddTo(this RoutineHandle handler,ICollection<IDisposable> collection)
         {
             var disposable = handler.AsDisposable();
             collection.Add(disposable);

@@ -1,10 +1,7 @@
 ﻿namespace UniGreenModules.UniRoutine.Runtime
 {
-    using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using Interfaces;
     using Unity.IL2CPP.CompilerServices;
     using UnityEngine;
 
@@ -13,114 +10,74 @@
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UniRoutineManager
     {
-        private static Lazy<UniRoutineRootObject> routineObject = new Lazy<UniRoutineRootObject>(CreateRoutineManager);
-
-        private static List<Lazy<IUniRoutine>> uniRoutines = new List<Lazy<IUniRoutine>>() {
-            new Lazy<IUniRoutine>(() => CreateRoutine(RoutineType.Update)),
-            new Lazy<IUniRoutine>(() => CreateRoutine(RoutineType.FixedUpdate)),
-            new Lazy<IUniRoutine>(() => CreateRoutine(RoutineType.EndOfFrame)),
-            new Lazy<IUniRoutine>(() => CreateRoutine(RoutineType.LateUpdate)),
-        };
+        private static UniRoutinObject[] _routineObjects = new UniRoutinObject[2];
 
         /// <summary>
         /// start uniroutine interator
         /// </summary>
         /// <param name="enumerator">target enumerator</param>
         /// <param name="routineType">routine type</param>
+        /// <param name="scope">routine execution scope</param>
         /// <param name="moveNextImmediately"></param>
-        /// <returns>cancelation</returns>
-        public static RoutineHandler RunUniRoutine(IEnumerator enumerator,
-            RoutineType routineType = RoutineType.Update,
+        /// <returns>cancelation handle</returns>
+        public static RoutineHandle RunUniRoutine(
+            IEnumerator enumerator,
+            RoutineType routineType,
+            RoutineScope scope,
             bool moveNextImmediately = true)
         {
+            var routineObject = GetRoutineObject(scope);
             //get routine
-            var routine = uniRoutines[(int) routineType];
+            var routine = routineObject.GetRoutine(routineType);
             //add enumerator to routines
-            var routineItem = routine.Value;
-            var routineTask = routineItem.AddRoutine(enumerator, moveNextImmediately);
+            var routineTask = routine.AddRoutine(enumerator, moveNextImmediately);
             if (routineTask == null)
-                return new RoutineHandler(0,routineType);
+                return new RoutineHandle(0,routineType,scope);
 
-            var routineValue = new RoutineHandler(routineTask.Id,routineType);
+            var routineValue = new RoutineHandle(routineTask.Id,routineType,scope);
             return routineValue;
         }
 
-        private static UniRoutineRootObject CreateRoutineManager()
+        private static UniRoutinObject GetRoutineObject(RoutineScope scope)
+        {
+            var index = (int) scope;
+            var scopeObject = _routineObjects[index];
+            if (scopeObject && scopeObject.gameObject)
+                return scopeObject;
+
+            scopeObject = CreateRoutineScopeObject(scope);
+            _routineObjects[index] = scopeObject;
+            return scopeObject;
+        }
+
+        private static UniRoutinObject CreateRoutineScopeObject(RoutineScope routineScope)
         {
             //create routine object and mark as immortal
             var gameObject        = new GameObject("UniRoutineManager");
-            var routineGameObject = gameObject.AddComponent<UniRoutineRootObject>();
-            UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            var routineGameObject = gameObject.AddComponent<UniRoutinObject>();
+            if (routineScope == RoutineScope.Global) {
+                UnityEngine.Object.DontDestroyOnLoad(gameObject); 
+            }
             return routineGameObject;
         }
 
-
-        private static IUniRoutine CreateRoutine(RoutineType routineType)
-        {
-            //create uni routine
-            var routine = new UniRoutine();
-            //run coroutine for target update type
-            ExecuteUniRoutines(routine, routineType);
-            return routine;
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static IEnumerator ExecuteOnUpdate(IUniRoutine routine, RoutineType routineType)
-        {
-            var awaiter = GetRoutineAwaiter(routineType);
-            while (true) {
-                routine.Update();
-                //wait time before next update
-                yield return awaiter;
-            }
-        }
-        
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static YieldInstruction GetRoutineAwaiter(RoutineType routineType)
-        {
-            switch (routineType) {
-                case RoutineType.Update:
-                    return null;
-                case RoutineType.EndOfFrame:
-                    return new WaitForEndOfFrame();
-                case RoutineType.FixedUpdate:
-                    return new WaitForFixedUpdate();
-                case RoutineType.LateUpdate:
-                    return new WaitForFixedUpdate();
-            }
-
-            return null;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void ExecuteUniRoutines(IUniRoutine routine, RoutineType routineType)
-        {
-            var routineContainer = routineObject.Value;
-            if (routineType == RoutineType.LateUpdate) {
-                routineContainer.AddLateRoutine(routine);
-                return;
-            }
-
-            routineContainer.StartCoroutine(ExecuteOnUpdate(routine, routineType));
-        }
-
-
-        public static bool IsRoutineActive(RoutineHandler handler)
+        public static bool IsRoutineActive(RoutineHandle handler)
         {
             //get routine
-            var routine = uniRoutines[(int) handler.Type];
-            return routine.Value.IsActive(handler.Id);
+            var scope = GetRoutineObject(handler.Scope);
+            var routine = scope.GetRoutine(handler.Type);
+            return routine.IsActive(handler.Id);
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryToStopRoutine(RoutineHandler handler)
+        public static bool TryToStopRoutine(RoutineHandle handler)
         {
             //get routine
-            var routine = uniRoutines[(int) handler.Type];
+            var scope   = GetRoutineObject(handler.Scope);
+            var routine = scope.GetRoutine(handler.Type);
             //add enumerator to routines
-            var routineItem = routine.Value;
-            return routineItem.CancelRoutine(handler.Id);
+            return routine.CancelRoutine(handler.Id);
         }
     }
 }

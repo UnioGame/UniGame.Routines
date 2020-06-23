@@ -26,6 +26,9 @@
             RoutineScope scope,
             bool moveNextImmediately = true)
         {
+            if(Application.isPlaying == false)
+                return new RoutineHandle();
+            
             var routineObject = GetRoutineObject(scope);
             //get routine
             var routine = routineObject.GetRoutine(routineType);

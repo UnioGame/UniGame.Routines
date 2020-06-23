@@ -11,7 +11,7 @@ namespace UniGreenModules.UniRoutine.Examples.UpdateExamples
         public int         updateCount;
         public int         routineCount;
         public RoutineType RoutineType = RoutineType.Update;
-        public List<RoutineHandler> RoutineHandlers = new List<RoutineHandler>();
+        public List<RoutineHandle> RoutineHandlers = new List<RoutineHandle>();
             
         // Start is called before the first frame update
         private void Start()
@@ -38,9 +38,18 @@ namespace UniGreenModules.UniRoutine.Examples.UpdateExamples
                     yield break;
                 }
 
+                yield return OnSome();
                 yield return null;
             }
         }
 
+        private IEnumerator OnSome()
+        {
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+        }
+        
     }
 }

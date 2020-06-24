@@ -1,4 +1,8 @@
-﻿namespace UniGreenModules.UniRoutine.Runtime {
+﻿using UnityEngine.Scripting;
+
+[assembly: AlwaysLinkAssembly]
+
+namespace UniGreenModules.UniRoutine.Runtime {
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;

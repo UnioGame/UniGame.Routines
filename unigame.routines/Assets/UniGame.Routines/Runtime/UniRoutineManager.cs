@@ -11,7 +11,30 @@
     public static class UniRoutineManager
     {
         private static UniRoutinObject[] _routineObjects = new UniRoutinObject[2];
-
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsRoutineActive(RoutineHandle handler)
+        {
+            if(Application.isPlaying == false)
+                return false;
+            //get routine
+            var scope   = GetRoutineObject(handler.Scope);
+            var routine = scope.GetRoutine(handler.Type);
+            return routine.IsActive(handler.Id);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryToStopRoutine(RoutineHandle handler)
+        {
+            if(Application.isPlaying == false)
+                return true;
+            //get routine
+            var scope   = GetRoutineObject(handler.Scope);
+            var routine = scope.GetRoutine(handler.Type);
+            //add enumerator to routines
+            return routine.CancelRoutine(handler.Id);
+        }
+        
         /// <summary>
         /// start uniroutine interator
         /// </summary>
@@ -64,23 +87,5 @@
             return routineGameObject;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsRoutineActive(RoutineHandle handler)
-        {
-            //get routine
-            var scope = GetRoutineObject(handler.Scope);
-            var routine = scope.GetRoutine(handler.Type);
-            return routine.IsActive(handler.Id);
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryToStopRoutine(RoutineHandle handler)
-        {
-            //get routine
-            var scope   = GetRoutineObject(handler.Scope);
-            var routine = scope.GetRoutine(handler.Type);
-            //add enumerator to routines
-            return routine.CancelRoutine(handler.Id);
-        }
     }
 }

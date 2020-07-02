@@ -8,7 +8,7 @@
     {
         public static IEnumerator WaitForEnd(this Animator animator, int stateHash, int layer = 0)
         {
-            while (animator.GetCurrentAnimatorStateInfo(layer).shortNameHash != stateHash) {
+            while (animator == null || animator.GetCurrentAnimatorStateInfo(layer).shortNameHash != stateHash) {
                 yield return null;
             }
 
@@ -17,6 +17,9 @@
 
         public static IEnumerator WaitStateEnd(this Animator animator, int stateHash, int layer = 0)
         {
+            if (animator == null)
+                yield return null;
+            
             animator.SetTrigger(stateHash);
 
             yield return animator.WaitForEnd(stateHash, layer);

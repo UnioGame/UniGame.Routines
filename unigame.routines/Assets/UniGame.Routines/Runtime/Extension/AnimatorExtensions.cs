@@ -17,8 +17,8 @@
 
         public static IEnumerator WaitStateEnd(this Animator animator, int stateHash, int layer = 0)
         {
-            if (animator == null)
-                yield return null;
+            if (animator == null || !animator.HasState(layer, stateHash))
+                yield break;
             
             animator.SetTrigger(stateHash);
 

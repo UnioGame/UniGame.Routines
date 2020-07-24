@@ -102,7 +102,7 @@
             yield return null;
             yield return null;
 
-            var postDisposable = new LifeTime();
+            var postDisposable = LifeTime.Create();
             for (int i = 10; i < disposable.Count; i++) {
                 var itemDisposable = disposable[i];
                 itemDisposable.Dispose();

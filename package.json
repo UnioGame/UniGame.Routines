@@ -4,14 +4,14 @@
   "displayName": "UniGame UniRoutine",
   "description": "Unity Routine System",
   "unity": "2019.2",
-  "version": "1.5.35",
+  "version": "1.5.36",
   "homepage": "https://github.com/UniGameTeam/UniRoutines#readme",
   "keywords": [
     "routine",
     "async"
   ],
   "dependencies": {
-    "com.unigame.unicore": "2020.0.4"
+    "com.unigame.unicore": "2020.0.5"
   },
   "repository": {
     "type": "git",

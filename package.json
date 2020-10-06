@@ -1,17 +1,17 @@
 {
   "name": "com.unigame.uniroutine",
-  "author": "Mefodei (https://github.com/Mefodei)",
+  "author": "UniGameTeam",
   "displayName": "UniGame UniRoutine",
   "description": "Unity Routine System",
   "unity": "2019.2",
-  "version": "1.5.42",
+  "version": "1.5.44",
   "homepage": "https://github.com/UniGameTeam/UniRoutines#readme",
   "keywords": [
     "routine",
     "async"
   ],
   "dependencies": {
-    "com.unigame.unicore": "2020.0.11"
+    "com.unigame.unicore": "2020.0.13"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-﻿namespace UniGreenModules.UniRoutine.Tests.Tests
+﻿namespace UniModules.UniRoutine.Tests.Tests
 {
     using System;
     using System.Collections;

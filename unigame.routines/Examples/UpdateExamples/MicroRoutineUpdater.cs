@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace UniGreenModules.UniRoutine.Examples.UpdateExamples
+namespace UniModules.UniRoutine.Examples.UpdateExamples
 {
     using System;
     using System.Collections.Generic;

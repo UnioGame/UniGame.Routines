@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UniGreenModules.UniRoutine.Examples.ExtensionsExamples
+namespace UniModules.UniRoutine.Examples.ExtensionsExamples
 {
     using System;
     using System.Collections;

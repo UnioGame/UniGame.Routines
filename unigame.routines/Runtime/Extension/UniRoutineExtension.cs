@@ -1,4 +1,6 @@
-﻿namespace UniModules.UniRoutine.Runtime
+﻿using UniModules.UniCore.Runtime.Rx.Extensions;
+
+namespace UniModules.UniRoutine.Runtime
 {
     using System;
     using System.Collections;
@@ -8,7 +10,9 @@
     using UniCore.Runtime.DataFlow.Interfaces;
     using UniCore.Runtime.Interfaces;
     using UniCore.Runtime.ObjectPool.Runtime;
+    using UniGame.Core.Runtime.DataFlow.Extensions;
     using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
+    using UnityEngine;
 
     public static class UniRoutineExtension {
 
@@ -54,6 +58,11 @@
             return disposable;
         }
 
+        public static ILifeTime AddTo(this RoutineHandle handle, Component component)
+        {
+            return component.AddTo(() => handle.Cancel());
+        }
+        
         public static RoutineHandle AddTo(this RoutineHandle handler,ILifeTime lifeTime)
         {
             lifeTime.AddCleanUpAction(() => handler.Cancel());
@@ -66,7 +75,6 @@
             collection.Add(disposable);
             return disposable;
         }
-
-        
+   
     }
 }

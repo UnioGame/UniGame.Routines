@@ -8,8 +8,8 @@
     using Runtime;
     using Runtime.Extension;
     using UniCore.Runtime.DataFlow;
-    using UniCore.Runtime.Interfaces;
     using UniCore.Runtime.Rx.Extensions;
+    using UniGame.Core.Runtime.Interfaces;
     using UnityEngine;
     using UnityEngine.TestTools;
 

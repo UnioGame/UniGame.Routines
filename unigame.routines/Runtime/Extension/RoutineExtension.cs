@@ -3,9 +3,9 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using UniCore.Runtime.Interfaces;
     using UniCore.Runtime.ObjectPool.Runtime;
     using UniCore.Runtime.ObjectPool.Runtime.Extensions;
+    using UniGame.Core.Runtime.Interfaces;
     using UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension;
     using UnityEngine;
     using UnityEngine.Profiling;

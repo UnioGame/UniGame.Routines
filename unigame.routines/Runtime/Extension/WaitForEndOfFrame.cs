@@ -9,9 +9,9 @@
 
         public override bool keepWaiting => Time.frameCount < _awaitEndFrame;
 
-        public WaitForEndOfFrame Initialize()
+        public WaitForEndOfFrame Initialize(int frameCount = 1)
         {
-            _awaitEndFrame = Time.frameCount + 1;
+            _awaitEndFrame = Time.frameCount + frameCount;
             return this;
         }
 

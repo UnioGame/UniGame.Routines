@@ -4,15 +4,15 @@
   "displayName": "UniRoutines Task Extensions",
   "description": "Task routines support",
   "unity": "2019.2",
-  "version": "2020.0.75",
+  "version": "2020.0.76",
   "keywords": [
     "routines",
     "task",
     "utils"
   ],
   "dependencies": {
-    "com.unigame.uniroutine": "2021.0.3",
-    "com.unigame.unicore": "2021.1.5",
+    "com.unigame.uniroutine": "2021.0.4",
+    "com.unigame.unicore": "2021.1.6",
     "com.unigame.neuecc.unirx": "7.1.1",
     "com.unigame.neuecc.unitask": "2.2.3"
   }

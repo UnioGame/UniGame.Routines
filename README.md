@@ -7,6 +7,7 @@ Routines for Unity3D
 
 Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json new Scope:
 
+```json
 {
   "scopedRegistries": [
    {
@@ -18,3 +19,5 @@ Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json n
     }
   ],
 }
+
+```

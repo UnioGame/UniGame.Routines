@@ -1,3 +1,5 @@
+using UniModules.UniGame.Core.Runtime.Interfaces;
+
 namespace UniModules.UniRoutine.Runtime
 {
     using System.Collections;
@@ -6,15 +8,15 @@ namespace UniModules.UniRoutine.Runtime
     using UniCore.Runtime.ObjectPool.Runtime.Interfaces;
     using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
 
-    public interface IUniRoutineTask : IEnumerator<IEnumerator>, IPoolable
+    public interface IUniRoutineTask : 
+        IEnumerator<IEnumerator>, 
+        IPoolable,
+        ILifeTimeContext
     {
         int Id { get; }
-        ILifeTime LifeTime { get; }
         bool IsCompleted { get; }
-        IEnumerator Current { get; }
         void Pause();
         void Unpause();
         void Complete();
-        void Dispose();
     }
 }

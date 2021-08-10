@@ -25,20 +25,23 @@ namespace UniModules.UniRoutine.Runtime {
 		private Dictionary<int,UniRoutineTask> activeRoutines = new Dictionary<int, UniRoutineTask>(256);
 		private UniLinkedList<UniRoutineTask> routineTasks = new UniLinkedList<UniRoutineTask>();
 		
-		public IUniRoutineTask AddRoutine(IEnumerator enumerator,bool moveNextImmediately = true) {
+		public IUniRoutineTask AddRoutine(IEnumerator enumerator,bool moveNextImmediately = true, Action finalAction = null) {
 
 			if (enumerator == null) return null;
 			
 			var routine = ClassPool.Spawn<UniRoutineTask>();
-
 #if UNITY_EDITOR
 			if (routine.IsCompleted == false) {
 				GameLog.LogError("ROUTINE: routine task is not completed");
 			}
 #endif
 			var id = idCounter++;
-			//get routine from pool
 			routine.Initialize(id,enumerator, moveNextImmediately);
+			if (finalAction != null)
+			{
+				routine.LifeTime.AddCleanUpAction(finalAction);
+			}
+			
 			routineTasks.Add(routine);
 			
 			activeRoutines[id] = routine;
@@ -46,6 +49,16 @@ namespace UniModules.UniRoutine.Runtime {
 			return routine;
 		}
 
+		public bool AddFinally(int id, Action action)
+		{
+			
+			if (!activeRoutines.TryGetValue(id, out var routineTask)) 
+				return false;
+			
+			routineTask.LifeTime.AddCleanUpAction(action);
+			return true;
+		}
+		
 		public bool IsActive(int id)
 		{
 			return activeRoutines.ContainsKey(id);

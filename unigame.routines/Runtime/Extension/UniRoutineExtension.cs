@@ -45,6 +45,15 @@ namespace UniModules.UniRoutine.Runtime
         {
             return UniRoutineManager.TryToStopRoutine(handler);
         }
+
+        public static RoutineHandle WithFinally(this RoutineHandle handle,Action action)
+        {
+            if (action == null)
+                return handle;
+            
+            UniRoutineManager.AddFinally(handle, action);
+            return handle;
+        }
         
         public static bool IsActive(this RoutineHandle handler)
         {

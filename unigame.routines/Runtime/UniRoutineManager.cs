@@ -1,4 +1,6 @@
-﻿namespace UniModules.UniRoutine.Runtime
+﻿using System;
+
+namespace UniModules.UniRoutine.Runtime
 {
     using System.Collections;
     using System.Runtime.CompilerServices;
@@ -15,8 +17,9 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsRoutineActive(RoutineHandle handler)
         {
-            if(Application.isPlaying == false)
-                return false;
+#if UNITY_EDITOR
+            if(!Application.isPlaying) return false;   
+#endif
             //get routine
             var scope   = GetRoutineObject(handler.Scope);
             var routine = scope.GetRoutine(handler.Type);
@@ -24,10 +27,23 @@
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddFinally(RoutineHandle handler,Action action)
+        {
+#if UNITY_EDITOR
+            if(!Application.isPlaying) return false;   
+#endif
+            //get routine
+            var scope   = GetRoutineObject(handler.Scope);
+            var routine = scope.GetRoutine(handler.Type);
+            return routine.AddFinally(handler.Id,action);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryToStopRoutine(RoutineHandle handler)
         {
-            if(Application.isPlaying == false)
-                return true;
+#if UNITY_EDITOR
+            if(!Application.isPlaying) return false;   
+#endif
             //get routine
             var scope   = GetRoutineObject(handler.Scope);
             var routine = scope.GetRoutine(handler.Type);
@@ -49,9 +65,10 @@
             RoutineScope scope,
             bool moveNextImmediately = true)
         {
-            if(Application.isPlaying == false)
-                return new RoutineHandle();
-            
+#if UNITY_EDITOR
+            if(!Application.isPlaying) return new RoutineHandle();
+#endif
+
             var routineObject = GetRoutineObject(scope);
             //get routine
             var routine = routineObject.GetRoutine(routineType);

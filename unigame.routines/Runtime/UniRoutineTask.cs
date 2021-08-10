@@ -17,7 +17,6 @@
     {
         private readonly Stack<IEnumerator> awaiters = new Stack<IEnumerator>();
         private readonly LifeTimeDefinition lifeTimeDefinition = new LifeTimeDefinition();
-        
         public readonly ILifeTime lifeTime;
 
         public bool isComplete = true;

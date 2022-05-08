@@ -97,7 +97,7 @@ namespace UniModules.UniRoutine.Runtime {
 					
 					CancelRoutine(routine.IdValue);
 					
-					routine.Despawn();
+					routine.DespawnClass();
 				}
 
 				current = next;
@@ -112,7 +112,7 @@ namespace UniModules.UniRoutine.Runtime {
 				var next    = current.Next;
 				var routine = current.Value;
 				routine.Complete();
-				routine.Despawn();
+				routine.DespawnClass();
 
 				current = next;	
 			}

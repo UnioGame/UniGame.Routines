@@ -96,7 +96,7 @@
             
             yield return waitForSeconds;
             
-            waitForSeconds.Despawn();
+            waitForSeconds.DespawnWithRelease();
         }
 
         public static IEnumerator WaitForEndOfFrame(this object source)
@@ -105,7 +105,7 @@
 
             yield return waitForEndFrame;
             
-            waitForEndFrame.Despawn();
+            waitForEndFrame.DespawnWithRelease();
         }
 
         public static IEnumerator WaitUntil(this object source, Func<bool> completeFunc)

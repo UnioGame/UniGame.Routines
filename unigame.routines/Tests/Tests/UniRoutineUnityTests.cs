@@ -1,4 +1,6 @@
-﻿namespace UniModules.UniRoutine.Tests.Tests
+﻿using UniModules.UniCore.Runtime.Extension;
+
+namespace UniModules.UniRoutine.Tests.Tests
 {
     using System;
     using System.Collections;
@@ -8,7 +10,6 @@
     using Runtime;
     using Runtime.Extension;
     using UniCore.Runtime.DataFlow;
-    using UniCore.Runtime.Rx.Extensions;
     using UniGame.Core.Runtime.Interfaces;
     using UnityEngine;
     using UnityEngine.TestTools;
@@ -109,8 +110,9 @@
                 this.OnUpdate(
                     x => {
                         counter[0]++;
-                        return true;
-                    }).ExecuteRoutine().AddTo(postDisposable);
+                        return true; })
+                    .ExecuteRoutine()
+                    .AddTo(postDisposable);
             }
             
             yield return null;

@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using Interfaces;
-    using UniCore.Runtime.Attributes;
+    using global::UniCore.Runtime.Attributes;
     using UniCore.Runtime.DataFlow;
     using UniCore.Runtime.Utils;
-    using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
-    using UniModules.UniGame.Core.Runtime.Interfaces;
+    using global::UniGame.Core.Runtime;
     using UnityEngine;
 
     public class UniRoutinObject : MonoBehaviour, 

@@ -1,7 +1,7 @@
 ﻿namespace UniModules.UniRoutine.Runtime
 {
     using System.Collections;
-    using UniGame.Core.Runtime.Interfaces;
+    using global::UniGame.Core.Runtime;
 
     public class UniRoutineExecutor : IContextExecutor<IEnumerator>
     {

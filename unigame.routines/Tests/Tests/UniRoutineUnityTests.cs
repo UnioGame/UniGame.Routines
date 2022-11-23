@@ -10,7 +10,7 @@ namespace UniModules.UniRoutine.Tests.Tests
     using Runtime;
     using Runtime.Extension;
     using UniCore.Runtime.DataFlow;
-    using UniGame.Core.Runtime.Interfaces;
+    using global::UniGame.Core.Runtime;
     using UnityEngine;
     using UnityEngine.TestTools;
 

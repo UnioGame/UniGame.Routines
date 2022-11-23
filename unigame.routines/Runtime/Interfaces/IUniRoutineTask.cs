@@ -1,12 +1,12 @@
-using UniModules.UniGame.Core.Runtime.Interfaces;
+using UniGame.Core.Runtime;
 
 namespace UniModules.UniRoutine.Runtime
 {
     using System.Collections;
     using System.Collections.Generic;
     using UniCore.Runtime.DataFlow.Interfaces;
-    using UniCore.Runtime.ObjectPool.Runtime.Interfaces;
-    using UniModules.UniGame.Core.Runtime.DataFlow.Interfaces;
+    using global::UniGame.Core.Runtime.ObjectPool;
+    using global::UniGame.Core.Runtime;
 
     public interface IUniRoutineTask : 
         IEnumerator<IEnumerator>, 

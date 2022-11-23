@@ -1,6 +1,6 @@
 ﻿namespace UniModules.UniRoutines.unigame.routines.Assets.UniGame.Routines.Runtime.Extension
 {
-    using UniCore.Runtime.ObjectPool.Runtime.Interfaces;
+    using global::UniGame.Core.Runtime.ObjectPool;
     using UnityEngine;
 
     public class WaitForEndOfFrame : CustomYieldInstruction, IPoolable

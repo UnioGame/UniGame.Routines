@@ -99,9 +99,17 @@ namespace UniModules.UniRoutine.Runtime
             var gameObject        = new GameObject("UniRoutineManager");
             var routineGameObject = gameObject.AddComponent<UniRoutinObject>();
             if (routineScope == RoutineScope.Global) {
-                UnityEngine.Object.DontDestroyOnLoad(gameObject); 
+                Object.DontDestroyOnLoad(gameObject); 
             }
             return routineGameObject;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void OnReload()
+        {
+            // foreach (var routineObject in _routineObjects)
+            //     routineObject?.Dispose();
+            _routineObjects = new UniRoutinObject[2];
         }
 
     }
